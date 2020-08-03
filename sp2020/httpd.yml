@@ -1,0 +1,45 @@
+---
+- name: install httpd on all servers
+  hosts: database
+  become: yes
+  become_user: root
+  become_method: sudo
+  
+
+  tasks: 
+    - name: install httpd
+      yum:
+        name: httpd
+        state: latest
+
+        #- name: create index.html    
+        #copy: 
+        # content: "I created this site using ansible"
+        #dest: /var/www/html/index.html
+        #owner: http
+        #group: apache
+        #mode: 777
+        #
+    - name: delete old index.html
+      command:
+        cmd: "rm /var/www/html/index.html"
+    
+    - name: create index.html
+      copy:
+        src: bright2
+        dest: /var/www/html/index.html
+
+
+    - name: start httpd service
+      service:
+        name: httpd
+        state: restarted
+        enabled: yes momo
+
+    - name: open firewall
+      firewalld:
+        port: 80/tcp
+        permanent: yes
+        immediate: yes
+        state: enabled
+...

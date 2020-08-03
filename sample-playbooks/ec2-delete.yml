@@ -1,0 +1,15 @@
+---
+- name: EC2 Instance creation
+  hosts: localhost
+  connection: local
+  vars:
+     instances:
+      - i-007a9ec27d6ce7b67
+      - i-02193d3259a261184
+      - i-02a4719fe44fdb244
+  tasks:
+  - name: Launching the EC2 instance
+    ec2:
+      instance_ids: "{{ instances }}"  
+      state : absent
+      region: us-east-1

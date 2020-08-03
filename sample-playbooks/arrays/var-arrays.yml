@@ -1,0 +1,10 @@
+---
+- name: show arrays
+  hosts: localhost
+  vars_files:
+    - vars/users
+    
+  tasks:
+    - name: print array values
+      debug:
+        msg: "User {{ user.akos.username }} has homedirectory {{ user.akos.homedir }} and shell {{ user.akos.shell }}"

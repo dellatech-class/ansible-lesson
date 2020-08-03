@@ -1,0 +1,8 @@
+---
+- name: vars demo 3
+  hosts: rhel
+  tasks:
+    - name: install {{ pkg }}
+      package:
+        name: "{{ pkg }}"
+        state: latest

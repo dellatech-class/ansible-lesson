@@ -1,0 +1,8 @@
+---
+- name: Demonstrate the use of variables
+  hosts: all
+  tasks:
+    - name: install Packages
+      yum:
+        name: "{{ packages }}"
+        state: absent

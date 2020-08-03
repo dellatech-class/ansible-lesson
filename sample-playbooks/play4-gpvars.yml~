@@ -1,0 +1,14 @@
+---
+- name: vars 2 example
+  hosts: all
+  tasks:
+    - name: install {{ web_pkg }} package
+      package: 
+        name: "{{ web_pkg }}"
+        state: latest
+
+    - name: start {{ web_srv }} service
+      service:
+        name: "{{ web_srv }}"
+        state: started
+        enabled: true

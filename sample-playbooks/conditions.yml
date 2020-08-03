@@ -1,0 +1,14 @@
+---
+- name: test when statements
+  hosts: dbservers
+  vars: 
+    supported_distros:
+      - RedHat
+      - CentOs
+      - Fedora
+  tasks:
+    - name: install Rhel family specific packages
+      yum:
+        state: present
+        name: httpd
+      when: ansible_distribution in supported_distros  

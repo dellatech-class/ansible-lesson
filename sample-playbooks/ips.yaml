@@ -1,0 +1,7 @@
+---
+- name: display ip addresses of all systems
+  hosts: all
+  tasks:
+    - name: get ips
+      debug: 
+        msg: The ip of this host is {{ ansible_facts.default_ipv4.address }}

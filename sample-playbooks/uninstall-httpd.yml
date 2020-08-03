@@ -1,0 +1,16 @@
+---
+- name: install apache
+  hosts: webservers
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: absent
+    - name: copy content of index.html
+      file:
+        name: /var/www/html/index.html
+        state: absent
+...
+
+
+   

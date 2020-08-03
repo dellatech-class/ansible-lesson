@@ -1,0 +1,23 @@
+---
+- name: create users with a loop
+  hosts: all
+  become: yes
+  tasks: 
+    - name: create users
+      user:
+        name: "{{ item.name }}"
+        groups: "{{ item.groups }}"
+        home: "{{ item.home }}"
+        shell: "{{ item.shell }}"
+        state: present
+       
+      loop:
+        - name: james
+          groups: wheel
+          home: /home/ansible
+          shell: /bin/sh
+        - name: bright
+          groups: wheels
+          home: /tmp
+          shell: /sbin/nologin
+

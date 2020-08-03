@@ -1,0 +1,31 @@
+--- 
+- name: Demo handlers
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  force_handlers: yes
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: copy index.html file
+      copy:
+        src: /tmp/index.html
+        dest: /var/www/html/index.html
+      notify:
+        - restart_webservice
+    
+    - name: copy nothing file
+      copy: 
+        src: /tmp/nothing
+        dest: /var/www/html/nothing
+
+  handlers:
+    - name: restart_webservice
+      service:
+        name: httpd
+        state: restarted
+

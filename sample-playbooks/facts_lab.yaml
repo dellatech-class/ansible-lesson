@@ -1,0 +1,29 @@
+---
+- name: install facts and packages
+  hosts: webservers
+  vars:
+    remote_dir: /etc/ansible/facts.d
+    facts_file: facts.fact
+
+  tasks: 
+    - name: create facts file
+      file:
+        state: directory
+        recurse: yes
+        path: "{{ remote_dir }}"
+
+    - name: copy facts to facts location
+      copy:
+        src: "{{ facts_file }}"
+        dest: "{{ remote_dir }}"
+
+    - name: install packages
+      yum:
+        name: "{{ ansible_local.facts.facts_lab.package }}"
+
+    - name: start service
+      service:
+        name: "{{ ansible_local.facts.facts_lab.service }}"
+        state: started
+        enabled: true
+... 

@@ -1,0 +1,28 @@
+- name: Using Arrays
+  hosts: dbservers
+  vars:
+
+    users:
+      dellatech1:
+        uname: happy
+        fname: Happy
+        lname: dellatech1
+        home: /home/dellatech1
+        shell: /bin/sh
+
+      global1:
+        uname: elorm
+        fname: Elorm
+        lname: global1
+        home: /home/global1
+        shell: /bin/csh
+
+
+  tasks:
+    
+    - name: create a user from array
+      user:
+        name: "{{ users.global1.uname }}"
+        comment: "{{ users.global1.fname }} {{ users.global1.lname }}"
+        shell: "{{ users.global1.shell }}"
+        state: present 

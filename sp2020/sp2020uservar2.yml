@@ -1,0 +1,12 @@
+--- 
+- name: var 2
+  hosts: rhel_based
+  vars:
+    srv: httpd
+
+  tasks:
+    - name: start {{ srv }}
+      service:
+        name: "{{ srv }}"
+        state: started
+        enabled: yes

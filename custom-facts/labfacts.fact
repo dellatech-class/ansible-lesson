@@ -1,0 +1,5 @@
+[labcusfacts]
+package = samba
+service = smb
+state = started
+enable = yes

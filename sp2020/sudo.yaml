@@ -1,0 +1,32 @@
+---
+- name: Set up sudo user
+  hosts: all
+  tasks:
+    - name: create user support as a member of the wheel group
+      user:
+        name: support
+        group: wheel
+
+    - name: configure passwordless 
+      copy:
+        content: "support       ALL=(ALL)       NOPASSWD: ALL"
+        dest: /etc/sudoers.d/support
+
+    - name: Install ssh key
+      authorized_key:
+        manage_dir: yes
+        user: automation
+        key: "{{ lookup('file', '/home/automation/.ssh/id_rsa.pub') }}"
+
+  handlers:
+    - name: Limit ssh usage to members of wheel group
+      lineinfile:
+        state: present
+        dest: /etc/ssh/sshd_config
+        line: AllowHGroups wheel
+      notify: Restart sshd
+
+    - name: Restart sshd
+      service:
+        name: sshd
+        state: restarted

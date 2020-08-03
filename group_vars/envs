@@ -1,0 +1,2 @@
+web_pkg: httpd
+web_srv: sshd

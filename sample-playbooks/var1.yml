@@ -1,0 +1,15 @@
+---
+- name: Demo var1
+  hosts: all
+  vars_files:
+    - bright
+  tasks:
+    - name: install httpd
+      package:
+        name: "{{ packages }}"
+        state: present 
+
+    - name: start httpd
+      service:
+        name: httpd
+        state: "{{ status }}"

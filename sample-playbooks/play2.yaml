@@ -1,0 +1,46 @@
+---
+- name: Install and enable webserver
+  hosts: all
+  tasks: 
+    - name: Install httpd
+      package: 
+        name: 
+          - httpd
+          - firewalld
+        state: latest
+
+    - name: Install welcome page
+      copy: 
+        content: "Welcome to Dellatech Webpage"
+        dest: /var/www/html/index.html
+        force: no
+        mode: 0777
+
+    - name: start and enable firewall service
+      service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: open firewall ports
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+
+    - name: start and enable httpd
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+- name: test web access
+  hosts: localhost
+  become: no
+  tasks:
+    - name: connect to webserver
+      uri:
+        url: http://192.168.1.15
+        return_content: yes
+        status_code: 200

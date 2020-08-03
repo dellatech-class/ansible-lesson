@@ -1,0 +1,36 @@
+---
+- name: Install Start and Enable Apache
+  hosts: webservers
+  tasks:
+    - name: Install Apache
+      package: 
+        name: httpd
+
+    - name: Create index.html conetent
+      copy:
+        content: "Practising multi-plays"
+        dest: /var/www/html/index.html
+
+    - name: start firewalld
+      firewalld:
+        service: http
+        state: enabled
+        immediate: true 
+        permanent: true
+
+    - name: start and enable httpd
+      service: 
+        name: httpd
+        state: started
+        enabled: true
+
+- name: Test connectivity
+  hosts: localhost
+  become: false
+  tasks:
+    - name: connect to webserver
+      uri:
+        url: http://10.0.0.92
+        return_content: yes
+        status_code: 200
+

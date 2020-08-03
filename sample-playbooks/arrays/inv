@@ -1,0 +1,15 @@
+ansible[1:3].rhel8.dellatech
+
+
+[webservers]
+10.0.0.[91:92]
+
+[dbservers]
+ansible3.rhel8.dellatech
+
+[envs:children]
+webservers
+dbservers
+
+[master]
+ansiblem.rhel8.dellatech

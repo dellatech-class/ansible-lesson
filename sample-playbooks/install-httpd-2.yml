@@ -1,0 +1,43 @@
+- name: Install start and enable apache and firewalld
+  hosts: webservers
+  tasks:
+    - name: Install apache and firwall
+      yum:
+        name:
+          - httpd
+          - firewalld
+        state: latest
+
+    - name: create web content
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          Go to Dellatechglobal.com
+          If you want more info 
+          Thank You
+    
+    - name: start both services
+      service:
+        name:
+          - httpd 
+          - firewalld
+        state: started
+        enabled: true
+
+    - name: start firewalld and add http service
+      firewalld:
+        service: http
+        state: enabled
+        immediate: true
+        permanent: yes
+
+
+- name: Test connectivity
+  hosts: localhost
+  tasks:
+    - name: connect to webserver
+      uri:
+        url: http://10.0.0.91
+        return_content: yes
+        status_code: 200
+        return_status: ok

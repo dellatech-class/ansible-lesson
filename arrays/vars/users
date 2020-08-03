@@ -1,0 +1,13 @@
+users:
+  innocent: 
+    username: innocent
+    homedir: /home/innocent
+    shell: /bin/bash
+  bright: 
+    username: bright
+    homedir: /home/bright
+    shell: /bin/sh
+  dellatech: 
+    username: dellatech
+    homedir: /home/dellatech
+    shell: /sbin/nologin

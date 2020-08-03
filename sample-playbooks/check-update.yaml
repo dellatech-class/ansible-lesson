@@ -1,0 +1,13 @@
+---
+- name: check if update is available
+  hosts: rhel_based
+  tasks:
+    - name: check update
+      yum:
+        list: updates
+        update_cache: true
+      register: updates
+
+    - name:
+      debug:
+        msg: echo {{ updates }}

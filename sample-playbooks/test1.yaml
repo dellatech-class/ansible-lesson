@@ -1,0 +1,15 @@
+---
+- name: add new user
+  hosts: all
+  tasks:
+    - name: add user
+      user:
+        name: bright
+        state: absent
+    - name: add group
+      groups:
+        name: dellatech
+        state: present 
+    - name: add bright to dellatech group
+      append:
+

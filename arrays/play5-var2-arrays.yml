@@ -1,0 +1,10 @@
+---
+- name: Demonstrate Arrays and Vars
+  hosts: dbservers
+  vars_files:
+    - vars/users
+  tasks:
+    - name: Demonstrate the use of arrays
+      debug:
+        msg: "User {{ users.bright.username }} has home directory {{ users.bright.homedir }} and shell {{ users.bright.shell }}"
+      

@@ -1,0 +1,16 @@
+---
+- name: Demonstrate the use of variables
+  hosts: all
+  vars:
+    packages:
+      - httpd
+      - nmap
+      - php
+      - mod_php
+      - mod_ssl
+
+  tasks:
+    - name: install Packages
+      yum:
+        name: "{{ packages }}"
+        state: absent

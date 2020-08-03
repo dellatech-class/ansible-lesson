@@ -1,0 +1,19 @@
+---
+- name: install and configure ftp
+  hosts: all
+  tasks:
+  - name: install ftp
+    yum:
+      name: vsftpd
+  - name: enable ftp
+    service:
+      name: vsftpd
+      enabled: true
+  - name: create a readme file
+    copy:
+      content: "Bright Created this just as a test"
+      dest: /var/ftp/pub/README
+      force: no
+      mode: 0444
+...
+

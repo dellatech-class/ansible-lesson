@@ -1,0 +1,17 @@
+---
+- name: testing blocks 2
+  hosts: all
+  tasks:
+    - name: remove a file
+      block:
+        - name: remove a file
+          shell:
+            cmd: /usr/bin/rm /pro/meminfo
+      rescue: 
+        - name: create a file
+          shell: 
+            cmd: /usr/bin/touch /tmp/brightfile
+      always:
+        - name: always write message to log
+          shell:
+            cmd: /usr/bin/logger hello

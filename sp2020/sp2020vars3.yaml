@@ -1,0 +1,11 @@
+---
+- name: vars 3
+  hosts: centos
+  vars_files:
+     - sp202vars/varfile
+
+  tasks:
+    - name: install {{ package }}
+      yum:
+        name: "{{ package }}"
+        state: latest

@@ -1,0 +1,16 @@
+---
+- name: use loop to start services
+  become: yes
+  hosts: all
+  vars:
+    loopsrvs:
+      - httpd
+      - sshd
+      - vsftpd
+  tasks:
+    - name: start the services
+      service: 
+        name: "{{ item }}"
+        state: started
+
+      loop: "{{ loopsrvs }}"

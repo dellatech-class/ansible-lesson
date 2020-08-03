@@ -1,0 +1,12 @@
+---
+- name: Example to show facts usage
+  hosts: ansible1.rhel8.dellatech
+  gather_facts: true
+  tasks:
+
+    - name: show some properties of {{ inventory_hostname }}
+      debug:
+        msg: >
+          My fqdn is {{ ansible_facts['fqdn'] }}
+          and my default ip address is {{ ansible_facts['default_ipv4']['address'] }}
+        
