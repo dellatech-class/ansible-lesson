@@ -1,0 +1,19 @@
+--- 
+- name: blocks exx
+  hosts: all
+  tasks: 
+    - name : testing blocks
+      block:
+      - name: install nginx
+        yum:
+          name: nginx
+#         state: latest
+          state: absent
+
+      - name: start nginx
+        service:
+          name: nginx
+          state: started
+          enabled: true
+#     when: ansible_distribution == "CentOS"
+      when: ansible_distribution == "RedHat"

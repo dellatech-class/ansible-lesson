@@ -1,0 +1,13 @@
+---
+- name: run against some specific hosts
+  hosts: all
+  vars:
+    hostssss:
+      - ansible1.rhel8.dellatech
+      - ansible3.rhel8.dellatech
+  tasks:
+    - name: install wget
+      yum:
+        name: wget
+        state: latest
+      when: ansible_host == {{ hostssss }}  

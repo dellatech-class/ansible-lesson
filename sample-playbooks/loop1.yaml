@@ -1,0 +1,24 @@
+---
+- name: Demo loops
+  hosts: centos
+  vars:
+    myusers1:
+      - moses
+      - john
+      - isaac
+      - adam
+  vars_files:
+    - user
+
+  tasks:
+    - name: add users
+      user:
+        name: "{{ item }}"
+        state: absent
+     loop: 
+        - "{{ myusers1 }}'
+        - paul
+        - james
+
+    - name: verify delation
+      command: "cat /etc/passwd"

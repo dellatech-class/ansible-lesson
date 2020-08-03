@@ -1,0 +1,20 @@
+---
+- name: Demo Register 1
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: no
+  tasks: 
+    - name: show how register works
+      shell: "echo {{ item }}"
+      loop: 
+        - "Bright"
+        - "Elorm"
+        - "Elikem"
+        - "Yayra"
+      register: echo
+
+    - name: show register
+      debug:
+        var: echo

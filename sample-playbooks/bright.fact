@@ -1,0 +1,4 @@
+[james2]
+package = httpd
+service = httpd
+state = started

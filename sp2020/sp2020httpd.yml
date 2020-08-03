@@ -1,0 +1,9 @@
+---
+- name: apache test
+  hosts: all
+  tasks:
+    - name: Install apache on all servers
+      package:
+        name: "{{ pkg }}"
+        state: present
+

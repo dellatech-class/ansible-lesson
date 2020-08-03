@@ -1,0 +1,31 @@
+---
+- name: custom facts lab work
+  hosts: dbservers
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+    remtdir: /etc/ansible/facts.d
+    factfile: labfacts.fact
+  tasks:
+    - name: create facts dir
+      file: 
+        state: directory
+        recurse: yes
+        path: "{{ remtdir }}"
+
+    - name: install facts
+      copy:
+        src: "{{ factfile }}"
+        dest: "{{ remtdir }}"
+  
+    - name: install pacakage
+      yum:
+        name: samba
+        state: latest
+
+    - name: start and enable {{ ansible_local.labfacts.labcusfacts.package }} service
+      service:
+        name: "{{ ansible_local.labfacts.labcusfacts.service }}"
+        state: "{{ ansible_local.labfacts.labcusfacts.state }}"
+        enable: "{{ ansible_local.labfacts.labcusfacts.enable }}"

@@ -1,0 +1,39 @@
+---
+- name: first playbook
+  hosts: rhel_based 
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: latest
+
+    - name: create index.html
+      copy:
+        # content: "welcome to dellatech global. today is sat April 25"
+        src: /tmp/web
+        dest: /var/www/html/index.html
+
+    - name: start httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: open firewall
+      firewalld:
+     #  service: http
+        port: 80/tcp
+        state: enabled
+        permanent: yes
+        immediate: yes    
+
+- name: My second play
+  hosts: centos
+  tasks:
+    - name: add user
+      user: 
+        name: james
+        state: present
+        uid: 2000
+        home: /var/www
+

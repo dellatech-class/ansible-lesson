@@ -1,0 +1,19 @@
+---
+- name: test register
+  hosts: all
+  gather_facts: no
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: cat content of passwd file
+      shell: cat /etc/passwd
+      register: passwd_contents
+
+    - debug:
+        var: passwd_contents
+
+    - name: see content of register
+      debug:
+        msg: echo "passwd contains user Elikem"
+      when: passwd_contents.stdout.find('Daniel') != -1  

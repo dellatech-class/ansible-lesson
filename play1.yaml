@@ -1,0 +1,22 @@
+--- 
+- name: Install vsftpd
+  hosts: all
+  tasks:
+    - name: Install vsftpd
+      package:
+        name: vsftpd
+        state: latest
+
+    - name: Create a readme file
+      copy:
+        content: Follow this steps
+        dest: /var/ftp/pub/ReadMe
+        force: no
+        mode: 0444
+
+    - name: Start and Enable Vsftpd
+      service:
+        name: vsftpd
+        state: started
+        enabled: true
+

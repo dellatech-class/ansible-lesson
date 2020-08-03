@@ -1,0 +1,12 @@
+---
+- name: Demo loops
+  hosts: centos
+  vars_files:
+    - credent
+  tasks:
+    - name: create users
+      user:
+        name: "{{ item }}"
+        password: "{{ pass }}"
+        state: present
+      loop: "{{ user }}"

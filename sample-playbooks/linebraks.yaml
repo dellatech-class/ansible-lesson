@@ -1,0 +1,21 @@
+--- 
+- name: Examples of | and >
+  hosts: localhost
+  tasks:
+    - name: Multiple Lines
+      copy:
+        content: |
+          This my first Line
+          This is My second Line
+          This your third Line
+          and Finally the 4th one
+        dest: /tmp/multiple_lines
+
+    - name: One long line
+      copy: 
+        content: >
+          This my first Line     
+          This is My second Line 
+          This your third Line   
+          and Finally the 4th one
+        dest: /tmp/one_long_line

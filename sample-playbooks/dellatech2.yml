@@ -1,0 +1,31 @@
+---
+- name: first playbook
+  hosts: rhel_based 
+  tasks:
+    - name: remove httpd
+      yum:
+        name: httpd
+        state: absent
+
+    - name: delete index.html
+      file:
+        dest: /var/www/html/index.html
+        state: absent
+
+    - name: close firewall
+      firewalld:
+     #  service: http
+        port: 80/tcp
+        state: disabled
+        permanent: yes
+        immediate: yes    
+
+- name: My second play
+  hosts: centos
+  tasks:
+    - name: remove user
+      user: 
+        name: james
+        state: absent
+
+

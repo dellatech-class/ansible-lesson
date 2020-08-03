@@ -1,0 +1,21 @@
+---
+- name: Demo handlers 2
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: intended to fail
+      block:
+        - name: remove a file
+          shell:
+            cmd: /usr/bin/rm /proc/meminfo
+      rescue:
+        - name: create a file
+          shell:
+            cmd: /usr/bin/touch /tmp/recuefile
+
+      always: 
+        - name: write a message to log
+          shell:
+            cmd: /usr/bin/logger hello

@@ -1,0 +1,20 @@
+---
+- name: Demo when
+  gather_facts: yes
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+    supported_distros:
+      - RedHat
+      - Ubuntu
+      - CentOS
+      - Fedora
+  tasks:
+    - name: Install RH family only
+      yum: 
+        name: nginx
+        state: present
+      when: ansible_distribution in supported_distros
+...

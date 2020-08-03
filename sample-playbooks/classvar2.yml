@@ -1,0 +1,19 @@
+---
+- name: Var Demo
+  hosts: rhel
+  vars_files:
+    - vars/james
+  tasks:
+    - name: Install {{ package }}
+      yum:
+        name: "{{ package }}"
+        state: latest
+
+    - name: start {{ service }} service
+      service: 
+        name: "{{ service }}"
+        state: started
+        enabled: yes
+
+
+

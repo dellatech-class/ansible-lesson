@@ -1,0 +1,13 @@
+---
+- name: loops wit conds
+  become: yes
+  become_user: root
+  become_method: sudo
+  hosts: all
+  tasks: 
+    - name: restart sshd only if crond is running
+      command: /bin/systemctl is-active crond
+      ignore_errors: yes
+      register: crondstatus
+    - debug:
+        var: crondstatus

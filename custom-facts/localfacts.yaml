@@ -1,0 +1,21 @@
+---
+- name: Install local facts
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+    remotedir: /etc/ansible/facts.d
+    factsfile: brightsfacts.fact
+  tasks:
+    - name: create facts dir
+      file:
+        state: directory
+        recurse: yes
+        path: "{{ remotedir }}"
+
+    - name: install new facts
+      copy:
+        src: "{{ factsfile }}"
+        dest: "{{ remotedir }}"
+

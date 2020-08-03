@@ -1,0 +1,30 @@
+--- 
+- name: create a 500MB partition 
+  hosts: ansible1.rhel8.dellatech
+  tasks:
+    - name: create partition
+      parted:
+        device: /dev/vdb
+        number: 1
+        state: present
+        part_start: 2MiB
+        part_end: 500MiB
+    
+    - name: Format the disk
+      filesystem:
+        fstype: ext4
+        dev: /dev/vdb1
+
+    - name: create a directory to mount partition
+      file:
+        path: /mnt/vdb1
+        state: directory 
+        mode: 0755
+
+    - name: Mount partition
+      mount: 
+        path: /mnt/vdb1
+        src: /dev/vdb1
+        fstype: ext4
+        state: mounted
+...        

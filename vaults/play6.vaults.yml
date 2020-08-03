@@ -1,0 +1,10 @@
+--- 
+- name: example on vaults
+  hosts: all
+  vars_files:
+    - secret.yml
+  tasks: 
+    - name: add user
+      user:
+       name: "{{ username }}"
+       password: "{{ password }}"

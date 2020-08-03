@@ -1,0 +1,19 @@
+---
+- name: Demo vars
+  hosts: centos
+  vars:
+    pkg: httpd
+    srv: httpd
+  tasks:
+    - name: install httpd
+      package:
+        name: "{{ pkg }}"
+        state: present
+
+    - name: start httpd
+      service:
+        name: "{{ srv }}"
+        state: started
+        enabled: yes
+
+...

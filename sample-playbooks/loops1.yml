@@ -1,0 +1,14 @@
+---
+- name: example of loops
+  hosts: all
+  vars:
+    servs:
+      - sshd
+      - crond
+
+  tasks:
+    - name: start services
+      service:
+        name: "{{ item }}"
+        state: started
+      loop: "{{ servs }}"    

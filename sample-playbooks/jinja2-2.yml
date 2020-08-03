@@ -1,0 +1,7 @@
+- name: Dynamically update hosts file
+  hosts: webservers
+  tasks:
+    - name: update /etc/hosts
+      template:
+        src: hosts.j2
+        dest: /etc/hosts

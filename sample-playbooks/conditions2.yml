@@ -1,0 +1,11 @@
+---
+- name: testing conditions second
+  hosts: dbservers
+  tasks:
+    - package:
+        name: nginx
+        state: installed
+      when:
+        - ansible_distribution == "RedHat"
+#        - ansible_memfree_mb < 512
+      when: ansible_distribution == "RedHat" and ansible_memfree_mb < 512   

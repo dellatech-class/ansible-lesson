@@ -1,0 +1,16 @@
+---
+- name: update systems
+  hosts: alls
+  tasks: 
+    - name: Apply updates
+      yum:
+        name: "*"
+        state: latest
+    - name: Reboot System
+      reboot:
+        msg: system going doing for reboot
+...
+
+        
+
+

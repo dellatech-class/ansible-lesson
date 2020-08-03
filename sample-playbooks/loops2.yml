@@ -1,0 +1,23 @@
+---
+- name: create users using loops
+  hosts: webservers
+  tasks:
+    - name: create groups
+      group:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - dellatech1
+        - dtglobal2
+
+    - name: create users
+      user:
+        name: "{{ item.name }}"
+        state: present
+        groups: "{{ item.groups }}"
+      loop:
+        - name: bright
+          groups: dellatech1
+        - name: elorm
+          groups: dtglobal2
+

@@ -1,0 +1,32 @@
+---
+- name: copy a file
+  hosts: all
+  tasks:
+    - name: copy /etc/hosts
+      copy: 
+        src: /etc/hosts
+        dest: /tmp
+
+    - name: add new lines to hosts
+      blockinfile:
+        path: /tmp/hosts
+        block: |
+          192.168.1.74 ansible1.dellatech.com ansible1
+          192.168.1.77 ansible3.dellatech.com ansible2
+          192.168.1.73 ansible2.dellatech.com ansible3
+        state: present
+
+    - name: verify file checksum
+      stat:
+        path: /tmp/hosts
+        checksum_algorithm: md5
+      register: result
+
+    - debug:
+        msg: "The checksum of /tmp/hosts is {{ result.stat.checksum }}"
+
+    - name: fetch a file
+      fetch:
+        src: /tmp/hosts
+        dest: /home/ansible/Downloads
+

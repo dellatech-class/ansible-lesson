@@ -1,0 +1,7 @@
+- name: Change SELinux mode to permissiv
+  hosts: rhel_based
+  tasks:
+    - name: change SElinux mode
+      selinux:
+         policy: targeted
+         state: permissive

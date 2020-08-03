@@ -1,0 +1,10 @@
+---
+- name: mytest
+  hosts: all
+  tasks:
+  - name: task1
+    user:
+      name: bright
+      state: absent
+
+    

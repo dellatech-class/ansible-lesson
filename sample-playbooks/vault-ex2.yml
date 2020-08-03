@@ -1,0 +1,10 @@
+---
+- name: assign user password using vault
+  hosts: ansible1.rhel8.dellatech
+  tasks:
+
+    - name: create user
+      user:
+        name: "{{ username }}"
+        password: "{{ password | password_hash ('sha512') }}"
+        state: absent
