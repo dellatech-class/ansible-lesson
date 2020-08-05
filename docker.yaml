@@ -1,0 +1,73 @@
+- name: Docker Setup
+  hosts: ansible6
+  vars:
+    dir: /home/automation/docker
+  tasks:
+    - name: Ensure system is updated
+      yum:
+        name: "*"
+        state: latest
+
+    - name: install python2-pip
+      yum:
+        name: python2-pip
+        state: present
+
+    - name: install docker-py using pip
+      command: "pip install docker-py"
+
+    - name: Create Docker Repo
+      yum_repository:
+        name: docker-ce
+        baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
+        description: Docker-ce repo
+        enabled: yes
+        gpgcheck: no
+      #notify: clean metadata
+
+  #handlers:
+    - name: clean metadata
+      command: yum clean metadata
+
+    - name: Install docker
+      yum:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+        - docker-ce
+
+    - name: start and enable Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: create a directory for Docker
+      file:
+        path: "{{ dir }}"
+        state: directory
+
+    - name: copy files to directory created
+      copy:
+        src: "{{ item }}"
+        dest: "{{ dir }}"
+      loop:
+        - Dockerfile
+        - index.html
+
+    - name: create Docker image
+      docker_image:
+        name: bright:v1.0
+        build:
+          path: "{{ dir }}"
+          source: build
+        state: present
+
+    - name: Create Docker Container
+      docker_container:
+        name: bright
+        image: bright:v1.0
+        ports: "18022:80"

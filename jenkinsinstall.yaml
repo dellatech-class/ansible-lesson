@@ -1,0 +1,39 @@
+- name: Install Jenkins on rhel
+  hosts: sandbox
+  tasks:
+    - name: Install Java 8
+      yum:
+        name: java-1.8.0-openjdk-devel
+        state: present
+
+    - name: Add Jenkins repo
+      yum_repository:
+        name: Jenkins
+        description: Local Jenkins repo
+        baseurl: http://pkg.jenkins.io/redhat
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: https://pkg.jenkins.io/redhat/jenkins.io.key
+
+    #- name: import gpg key for Jenkins repo
+    #  rpm_key:
+    #    name: https://pkg.jenkins.io/redhat/jenkins.io.key
+    #    state: present
+
+    - name: Install jenkins
+      yum:
+        name: jenkins
+        state: latest
+
+    - name: stary and enable jenkins
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
+
+    - name: Open 8080/tcp on firewalld
+      firewalld:
+        port: 8080/tcp
+        immediate: yes
+        permanent: yes
+        state: enabled
