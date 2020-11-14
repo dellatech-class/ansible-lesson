@@ -1,12 +1,18 @@
 ---
 - name: Install and enable webserver
   hosts: database
+  vars:
+    web_pkgs:
+      - httpd
+      - firewalld
+
+    web_srv: httpd
+    firewall_srv: firewalld
+
   tasks: 
     - name: Install httpd
       package: 
-        name:
-          - httpd
-          - firewalld
+        name: "{{ web_pkgs }}"
         state: latest
 
     - name: Install welcome page
@@ -18,7 +24,7 @@
 
     - name: start and enable firewall service
       service:
-        name: firewalld
+        name: "{{ firewall_srv }}"
         state: started
         enabled: true
 
@@ -31,7 +37,7 @@
 
     - name: start and enable httpd
       service:
-        name: httpd
+        name: "{{ web_srv }}"
         state: started
         enabled: true
 

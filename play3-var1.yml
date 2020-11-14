@@ -4,7 +4,7 @@
   vars:
     user: bright
   tasks:
-    - name: add user bright
+    - name: add user {{ user }}
       user:
         name: "{{ user }}"
         state: present
