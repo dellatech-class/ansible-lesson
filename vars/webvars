@@ -1,0 +1,10 @@
+web_pkgs:
+    - httpd
+    - firewalld
+
+web_srv: httpd
+firewall_srv: firewalld
+
+rule: 
+ - http
+ - https
