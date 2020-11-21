@@ -1,13 +1,16 @@
 ---
 - name: Install and enable webserver
   hosts: database
-  vars:
-    web_pkgs:
-      - httpd
-      - firewalld
+#  vars:
+#    web_pkgs:
+#      - httpd
+#      - firewalld
 
-    web_srv: httpd
-    firewall_srv: firewalld
+#    web_srv: httpd
+#    firewall_srv: firewalld
+
+  vars_files:
+    - vars/webvars
 
   tasks: 
     - name: Install httpd
