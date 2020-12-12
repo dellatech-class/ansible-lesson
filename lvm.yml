@@ -1,0 +1,65 @@
+---
+- name: Set up lvm
+  hosts: all
+  become: yes
+  tasks:
+    - name: Fail if sdb not available
+      fail:
+        msg: Second disk sdb not available, exiting now
+      when: ansible_facts['devices']['sdb'] is not defined
+
+    - name: create partition
+      parted:
+        device: /dev/sdb
+        number: 1
+        state: present
+
+    - name: Create vol group vgfiles
+      lvg:
+        vg: vgfiles
+        pvs: /dev/sdb1
+
+    - name: update facts
+      setup:
+
+    - name: get vg size, convert to int and save as var
+      set_fact:
+        vgsize: "{{ ansible_facts['lvm']['vgs']['vgfiles']['size_g'] | int }}"
+
+    - name: show vg size
+      debug:
+        var: vgsize 
+
+    - name: create lvm if vg is bigger than 5
+      lvol:
+        vg: vgfiles
+        lv: lvfiles
+        size: 7g
+      when: vgsize | int > 7
+    
+    - name: create lvm if vg is smaller than 5
+      lvol:
+        vg: vgfiles
+        lv: lvfiles
+        size: 4g
+      when: vgsize | int <= 5
+
+    - name: format lv with xfs
+      filesystem:
+        fstype: xfs
+        dev: /dev/vgfiles/lvfiles
+
+    - name: mount fs
+      mount:
+        src: /dev/vgfiles/lvfiles
+        state: mounted
+        path: /files
+        fstype: xfs
+
+    - name: verify work
+      command: df -hT
+      register: dfh
+
+    - debug:
+        var: dfh.stdout_lines
+

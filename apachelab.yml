@@ -1,0 +1,59 @@
+---
+- name: Install and Configure apache
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Create web directory
+      file: 
+        path: /web
+        state: directory
+        owner: apache
+        group: apache
+        mode: 0755
+
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: latest
+
+    - name: Create web content
+      copy:
+        content: "Welcome To Dellatech Global today {{ ansible_date_time.date }}\n"
+        dest: /web/index.html
+        owner: apache
+        group: apache
+        mode: 0755
+
+    - name: set Selinux context
+      sefcontext:
+        target: "/web(/.*)?"
+        setype: httpd_sys_content_t
+        state: present
+
+    - name: set /web as document root
+      lineinfile: 
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^DocumentRoot'
+        #regexp: "{{ item }}"
+        line: 'DocumentRoot "/web"'
+        state: present
+      #loop:
+      # - '"/var/www/html"'
+      # - '"/var/www"'
+
+
+    - name: Run restorecon
+      command: restorecon -irv /web
+
+    - name: Start httpd
+      service:
+        name: httpd
+        state: restarted
+        enabled: yes
+
+    - name: allow http via firewall
+      firewalld:
+        service: http
+        state: enabled
+        immediate: yes
+        permanent: yes

@@ -1,0 +1,33 @@
+---
+- name: file Denmo
+  hosts: all
+  become: yes
+  tasks:
+    - name: copy demo
+      copy:
+        src: /etc/hosts
+        dest: /tmp/
+
+    - name: block demo
+      blockinfile:
+        path: /tmp/hosts
+        block: |
+          192.168.1.122 bright
+          192.168.1.212 tokpa
+          192.168.1.222 teargazz
+        state: present
+
+    - name: verify checksum
+      stat:
+        path: /tmp/hosts
+        checksum_algorithm: md5
+      register: result
+
+    - name: Display checsum value
+      debug:
+        msg: "The chksum value of /tmp/hosts is {{ result.stat.checksum }}"
+
+    - name: fetch file
+      fetch:
+        src: /tmp/hosts
+        dest: /tmp/

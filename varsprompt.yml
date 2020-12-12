@@ -1,0 +1,14 @@
+---
+- name: Demo Vars_prompt
+  hosts: all
+  vars_prompt:
+    - name: input
+      prompt: What package would like install ?
+      #private: no
+
+  tasks: 
+    - name: Install {{ input }}
+      yum:
+        name: "{{ input }}"
+        state: absent
+

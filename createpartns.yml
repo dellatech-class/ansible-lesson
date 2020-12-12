@@ -1,0 +1,25 @@
+---
+- name: Create two partitions
+  hosts: proxy
+  become: yes
+  tasks:
+    - name: Create partition one
+      parted:
+        name: part1
+        label: gpt
+        device: /dev/sdb
+        number: 1
+        state: present
+        part_start: 1MiB
+        part_end: 2GiB
+
+    - name: Create a second partition
+      parted:
+        name: part2
+        label: gpt
+        device: /dev/sdb
+        number: 2
+        state: present
+        part_start: 2GiB
+        part_end: 3GiB
+
