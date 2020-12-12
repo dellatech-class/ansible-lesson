@@ -1,0 +1,11 @@
+---
+- name: Demo cron job
+  hosts: all
+  tasks:
+    - name: run cron job
+      cron:
+        name: cron1
+        minute: "0"
+        hour: "9"
+        user: admin
+        job: "logger IT IS 8 AM"

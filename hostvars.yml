@@ -1,0 +1,9 @@
+---
+- name: Demo host vars
+  hosts: all
+  tasks:
+    - name: print variable name
+      debug:
+        #msg: "{{ web_package }}"
+        var: web_package
+

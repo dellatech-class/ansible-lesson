@@ -1,0 +1,13 @@
+---
+- name: delete parttions
+  hosts: proxy
+  become: yes
+  tasks:
+    - name: delete
+      parted:
+        device: /dev/sdb
+        number: "{{ item }}"
+        state: absent
+      loop:
+        - 1
+        - 2

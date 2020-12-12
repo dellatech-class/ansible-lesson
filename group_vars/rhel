@@ -1,0 +1,3 @@
+pkges:
+  - sshd
+  - firewalld

@@ -1,0 +1,11 @@
+---
+- name: Demo group vars
+  hosts: all
+  tasks:
+    - name: install packages
+      debug: 
+        msg: Install {{ pkges }}
+
+    - name: Install packages
+      yum:
+        name: "{{ pkges }}"

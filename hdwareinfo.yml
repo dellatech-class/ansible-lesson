@@ -1,0 +1,14 @@
+---
+- name: Collect information
+  become: yes
+  hosts: all
+  ignore_errors: yes  
+  tasks:
+  - name: use template from labs/hw.j2
+    template:
+      src: hwinfo.j2
+      dest: /home/admin/hw.{{ ansible_facts.hostname }}.txt
+      owner: admin
+      group: admin
+      mode: '0600'
+

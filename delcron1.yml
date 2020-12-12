@@ -1,0 +1,8 @@
+---
+- name: Delete Cron1
+  hosts: all
+  tasks:
+    - name: Delete
+      cron:
+        name: cron1
+        state: absent

@@ -1,0 +1,21 @@
+---
+- name: check if disk exist
+  hosts: all
+  vars_prompt:
+    - name: disk
+      prompt: please provide disk name e.g sdb
+      private: no
+
+  tasks:
+    - name: stop if {{ disk }} doesnt exist
+      assert:
+         that: 
+           - "ansible_facts['devices']['{{ disk }}'] is defined"
+         fail_msg: Disk {{ disk }} not found, exiting now
+         success_msg: "{{ disk }} is available, continuing"
+
+    - debug:
+        msg: "{{ disk }} was found, lets continue"
+
+    - debug:
+        msg: "{{ ansible_facts['devices']['sdb']['size'] }}"
