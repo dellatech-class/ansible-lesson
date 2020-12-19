@@ -1,0 +1,24 @@
+---
+- name: Demo Register
+  hosts: ansible2
+  become: yes
+  tasks: 
+    - name: Add user
+      user: 
+        name: mon
+        state: present
+      register: output
+
+    - name: show content of register
+      debug:
+        var: output
+    
+    - name: show content of register
+      debug:
+        var: output.uid
+
+    - name: change homedir
+      user:
+        name: mon
+        home: /home/admin
+      when: output.home == "/home/mon"

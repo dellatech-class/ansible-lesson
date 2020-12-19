@@ -1,5 +1,6 @@
 - name: facts
-  hosts: webservers
+  hosts: ansible1
+  #ignore_facts: yes
   tasks: 
     - name: gather facts
       debug:

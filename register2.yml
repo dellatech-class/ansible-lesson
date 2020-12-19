@@ -1,0 +1,10 @@
+---
+- hosts: ansible2
+  tasks:
+    - name: cat on passwd
+      command:
+        cmd: cat /etc/passwd
+      register: passfile
+
+    - debug:
+        var: passfile

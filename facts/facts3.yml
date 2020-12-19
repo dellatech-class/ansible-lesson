@@ -1,0 +1,7 @@
+---
+- name: Print size of sda1
+  hosts: all
+  tasks:
+    - name: dsa1 size
+      debug:
+        msg: The size of sda1 partition is {{ ansible_facts.devices.sda.partitions.sda1.size }}

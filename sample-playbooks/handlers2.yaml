@@ -1,7 +1,7 @@
 ---
 - name: handlers exx
-  hosts: webservers
-# force_handlers: true
+  hosts: localhost
+  force_handlers: true
   tasks:
     - name: install httpd
       package:
@@ -13,7 +13,7 @@
         src: /tmp/index.html
         dest: /var/www/html/index.html
       notify:
-        - bright
+        - restart apache
 
     - name: copy nothing - intended to fail
       copy:
@@ -21,7 +21,7 @@
         dest: /var/www/html/index.html
 
   handlers:
-    - name: bright
+    - name: restart apache
       service:
         name: httpd
         state: restarted
