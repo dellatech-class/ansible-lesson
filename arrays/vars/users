@@ -1,13 +1,16 @@
-users:
-  innocent: 
-    username: innocent
-    homedir: /home/innocent
+user:
+  linda:
+    username: linda
+    homedir: /home/linda
     shell: /bin/bash
-  bright: 
-    username: bright
-    homedir: /home/bright
-    shell: /bin/sh
-  dellatech: 
-    username: dellatech
-    homedir: /home/dellatech
-    shell: /sbin/nologin
+  
+  james:
+    username: james
+    homedir: /home/james
+    sheell: /home/bash
+
+  akos:
+    username: akos
+    homedir: /home/akos
+    shell: /bin/akos  
+

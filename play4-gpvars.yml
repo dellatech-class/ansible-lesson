@@ -4,11 +4,11 @@
   tasks:
     - name: install {{ web_pkg }} package
       package: 
-        name: "{{ web_pkg }}"
+        name: "{{ packages }}"
         state: latest
 
-    - name: start {{ web_srv }} service
-      service:
-        name: "{{ web_srv }}"
-        state: started
-        enabled: true
+#    - name: start {{ web_srv }} service
+#      service:
+#        name: "{{ web_srv }}"
+#        state: started
+#        enabled: true

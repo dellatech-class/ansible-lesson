@@ -1,7 +1,0 @@
-packages:
-  - httpd
-  - nmap
-  - php
-  - mod_php
-  - mod_ssl
-

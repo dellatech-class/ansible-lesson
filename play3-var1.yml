@@ -2,16 +2,10 @@
 - name: example of using vars-1
   hosts: all
   vars:
-    dellatech: james44
-  vars_files:
-    - vars/uservar1
+    user: bright
   tasks:
-    - name: delete user {{ dellatech }}
+    - name: add user bright
       user:
-        name: "{{ dellatech }}"
-        state: absent
-    
-    - name: create user {{ user }}
-      user: 
         name: "{{ user }}"
         state: present
+

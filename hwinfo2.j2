@@ -3,7 +3,5 @@ Free Memory             : {{ ansible_memfree_mb }}
 System Total CPU        : {{ ansible_processor_cores }}
 System Virtual CPU      : {{ ansible_processor_vcpus }}
 
-#Disks capacities
-#        /dev/sda        : {{ ansible_devices.sda.size }}
-#        #/dev/sdb        : {{ ansible_devices.sdb.size }}
-#        #/dev/sdc        : {{ ansible_devices.sdc.size }}
+Disks capacities
+        /dev/sda        : {{ ansible_devices.sda.size }}

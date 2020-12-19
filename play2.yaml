@@ -1,10 +1,10 @@
 ---
 - name: Install and enable webserver
-  hosts: database
+  hosts: all
   tasks: 
     - name: Install httpd
       package: 
-        name:
+        name: 
           - httpd
           - firewalld
         state: latest
@@ -41,6 +41,6 @@
   tasks:
     - name: connect to webserver
       uri:
-        url: http://192.168.1.185
+        url: http://192.168.1.15
         return_content: yes
         status_code: 200
