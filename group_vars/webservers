@@ -1,4 +1,7 @@
-pkges:
+packages:
+  - httpd
   - nmap
-  - nginx
-  
+  - php
+  - mod_php
+  - mod_ssl
+
