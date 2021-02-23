@@ -1,8 +1,6 @@
 ---
 - name: update all systems
   hosts: all
-  remote_user: admin
-  become: yes
   tasks:
     - name: update all packages
       yum: 
