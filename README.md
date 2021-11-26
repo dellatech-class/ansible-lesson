@@ -1,5 +1,3 @@
 # ansible-lesson
 
-
 Testing 
-
